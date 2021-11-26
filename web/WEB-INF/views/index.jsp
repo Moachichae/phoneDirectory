@@ -22,7 +22,7 @@
       </form>
   </div>
   <div>
-    <a href="sign_in">로그인</a>  <a href="sign_up">회원가입</a>
+    <a href="/login">로그인</a>  <a href="/members/new">회원가입</a>
   </div>
   <div>
     <a href="/list">전화번호 검색</a>
