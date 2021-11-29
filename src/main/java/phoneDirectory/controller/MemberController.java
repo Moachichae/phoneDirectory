@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import phoneDirectory.entity.Member;
 import phoneDirectory.service.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -37,11 +40,11 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(Member member, BindingResult result) {
+    public String login(HttpServletRequest request, Member member) {
         String memberId = memberService.login(member);
-        if (result.hasErrors())
-            return "members/loginMemberForm";
 
+        HttpSession session = request.getSession();
+        session.setAttribute("memberId",member.getId());
         return "redirect:/";
     }
 

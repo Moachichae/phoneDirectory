@@ -8,27 +8,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>$Title$</title>
   </head>
   <body>
 
   <div>
-    <h2>전화번호 입력</h2>
-      <form action="/phone" method="post">
-        이름 : <input type="text" name="name"><br>
-        생년월일 : <input type="text" name="birth"><br>
-        전화번호 : <input type="text" name="phone"><br>
-        <button type="submit">확인</button>
+    <h2>전화번호부</h2>
+    전화번호 입력
+      <form id="phone" name ="phone" action="/phones/new" method="post" accept-charset="UTF-8" onsubmit="submitAction()">
+        이름 : <input type="text" name="nameOrKey" required><br>
+        생년월일 : <input type="text" name="birth" required><br>
+        전화번호 : <input type="text" name="number" required><br>
+        <button type="submit" id="save">저장</button>
       </form>
   </div>
   <div>
     <a href="/login">로그인</a>  <a href="/members/new">회원가입</a>
   </div>
   <div>
-    <a href="/list">전화번호 검색</a>
+    <a href ="/phoneList">전화번호 검색</a>
   </div>
 
-
-
   </body>
+
+  <script>
+    const submitAction = function () {
+      let memberId = sessionStorage.getItem("memberId")
+      if (memberId == null) {
+        alert("로그인하세요");
+        return false;
+      }
+      return true
+    };
+
+  </script>
 </html>

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import phoneDirectory.entity.Member;
 import phoneDirectory.repository.MemberRepository;
 
-import java.net.URISyntaxException;
-
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -19,11 +17,11 @@ public class MemberService {
     }
 
     public String login(Member member) {
-        validateMember(member);
+        validateLogin(member);
         return member.getId();
     }
 
-    private void validateMember(Member member) {
+    private void validateLogin(Member member) {
         Member findMember = memberRepository.findById(member.getId());
         if (findMember == null)
             throw new NullPointerException("존재하지 않는 회원입니다.");
