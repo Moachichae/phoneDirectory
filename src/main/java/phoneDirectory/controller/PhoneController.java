@@ -26,11 +26,8 @@ public class PhoneController {
 
     @PostMapping(value = "/phones/new")
     public String create(HttpServletRequest httpServletRequest, Phone phone) {
-        HttpSession httpSession = httpServletRequest.getSession();
-        String memberId = (String) httpSession.getAttribute("memberId");
-        if (memberId != null)
+        if (isSession(httpServletRequest))
             phoneService.save(phone);
-
         return "redirect:/";
     }
 
@@ -42,14 +39,16 @@ public class PhoneController {
     }
 
     @PostMapping(value = "/phones/{nameOrKey}/edit")
-    public String edit(@PathVariable String nameOrKey, Phone phone) {
-        phoneService.update(nameOrKey, phone);
+    public String edit(@PathVariable String nameOrKey, Phone phone, HttpServletRequest httpServletRequest) {
+        if (isSession(httpServletRequest))
+            phoneService.update(nameOrKey, phone);
         return "redirect:/";
     }
 
     @GetMapping(value = "/phones/{nameOrKey}/delete")
-    public String delete(@PathVariable String nameOrKey) {
-        phoneService.delete(nameOrKey);
+    public String delete(@PathVariable String nameOrKey, HttpServletRequest httpServletRequest) {
+        if (isSession(httpServletRequest))
+            phoneService.delete(nameOrKey);
         return "redirect:/";
     }
 
@@ -58,6 +57,12 @@ public class PhoneController {
     public String findByName(@PathVariable String nameOrKey) {
         Phone phone = phoneService.findByName(nameOrKey);
         return phone.toString();
+    }
+
+    private boolean isSession(HttpServletRequest httpServletRequest) {
+        HttpSession httpSession = httpServletRequest.getSession();
+        String memberId = (String) httpSession.getAttribute("memberId");
+        return memberId != null;
     }
 
 

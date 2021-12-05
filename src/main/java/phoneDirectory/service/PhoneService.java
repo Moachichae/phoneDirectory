@@ -10,7 +10,7 @@ import java.util.Map;
 public class PhoneService {
 
     private final PhoneRepository phoneRepository;
-    private Map<String, Phone> phoneMap;
+    private final Map<String, Phone> phoneMap;
     int dataChangeCount = 0;
 
     private void synchronizeData() {
