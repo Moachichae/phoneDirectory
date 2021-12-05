@@ -20,6 +20,7 @@
         <button type="submit">확인</button>
     </form>
 </div>
+<input type="hidden" value="${memberId}" id="session">
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -63,6 +63,7 @@
     </div>
     <input type="hidden" value="${memberId}" id="session">
 </div>
+
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 <script>

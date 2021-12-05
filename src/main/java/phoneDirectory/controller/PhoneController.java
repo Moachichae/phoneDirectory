@@ -17,6 +17,11 @@ public class PhoneController {
 
     private final PhoneService phoneService;
 
+    @GetMapping(value = "/phones/new")
+    public String createForm(){
+        return "/phones/createPhoneForm";
+    }
+
     @GetMapping(value = "/phoneList")
     public String list(Model model) {
         Map<String, Phone> phoneMap = phoneService.getPhoneMap();

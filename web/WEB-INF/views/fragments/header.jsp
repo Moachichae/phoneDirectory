@@ -21,7 +21,7 @@
                             <a class="nav-link" id="login" href="/login" onload="loading()">로그인</a>
                         </c:if>
                         <c:if test="${not empty memberId}">
-                            <a class="nav-link" href="/phoneList">전화번호 입력</a>
+                            <a class="nav-link" href="/phones/new">전화번호 입력</a>
                         </c:if>
                     </li>
                     <c:if test="${not empty memberId}">

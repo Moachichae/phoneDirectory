@@ -34,6 +34,7 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
         </dependency>
+
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -41,6 +42,55 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${org.slf4j-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
         <!-- junit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -48,6 +98,7 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
+
         <!-- jstl -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -96,52 +147,11 @@
             <version>1.5.0.RELEASE</version>
         </dependency>
 
-    <!-- Logging -->
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${org.slf4j-version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>${org.slf4j-version}</version>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>${org.slf4j-version}</version>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.15</version>
-        <exclusions>
-            <exclusion>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>com.sun.jdmk</groupId>
-                <artifactId>jmxtools</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>com.sun.jmx</groupId>
-                <artifactId>jmxri</artifactId>
-            </exclusion>
-        </exclusions>
-        <scope>runtime</scope>
-    </dependency>
+        <!-- JWT -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.1</version>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
 </dependencies>
