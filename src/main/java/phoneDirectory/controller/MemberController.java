@@ -1,11 +1,14 @@
 package phoneDirectory.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import phoneDirectory.entity.Member;
+import phoneDirectory.service.JwtServiceImpl;
 import phoneDirectory.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +16,12 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtServiceImpl jwtService;
 
     @GetMapping("/members/new")
     public String creatForm() {
@@ -37,9 +42,11 @@ public class MemberController {
     @PostMapping("/login")
     public String login(HttpServletRequest request, Member member) {
         String memberId = memberService.login(member);
+        String token = jwtService.createToken(memberId);
+        log.info("토큰생성 : " + token);
 
         HttpSession session = request.getSession();
-        session.setAttribute("memberId",member.getId());
+        session.setAttribute("memberId", member.getId());
         return "redirect:/";
     }
 

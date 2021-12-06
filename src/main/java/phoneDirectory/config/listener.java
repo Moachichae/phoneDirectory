@@ -1,8 +1,9 @@
-package phoneDirectory.service;
+package phoneDirectory.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import phoneDirectory.repository.PhoneRepository;
+import phoneDirectory.service.PhoneService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,8 +19,6 @@ public class listener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContextListener.super.contextInitialized(sce);
         String poolConfig = sce.getServletContext().getInitParameter("connectionPoolConfiguration");
-        System.out.println("제발돼라");
-
         phoneRepository.save(phoneService.getPhoneMap());
     }
 }

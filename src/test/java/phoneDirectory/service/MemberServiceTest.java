@@ -1,12 +1,13 @@
 package phoneDirectory.service;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import phoneDirectory.entity.Member;
 import phoneDirectory.repository.MemberRepository;
 
-@Log4j
+@Slf4j
 class MemberServiceTest {
     MemberService memberService = new MemberService(new MemberRepository());
 

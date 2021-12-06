@@ -25,7 +25,7 @@ public class MemberService {
         Member findMember = memberRepository.findById(member.getId());
         if (findMember == null)
             throw new NullPointerException("존재하지 않는 회원입니다.");
-        if (findMember.getPassword().equals(member.getPassword()))
+        if (!findMember.getPassword().equals(member.getPassword()))
             throw new IllegalArgumentException("올바른 비밀번호가 아닙니다.");
     }
 
