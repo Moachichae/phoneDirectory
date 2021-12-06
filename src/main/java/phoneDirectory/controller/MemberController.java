@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import phoneDirectory.entity.Member;
 import phoneDirectory.service.JwtServiceImpl;
 import phoneDirectory.service.MemberService;
@@ -40,13 +42,11 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletRequest request, Member member) {
+    public String login(HttpServletRequest request, Member member, RedirectAttributes redirectAttr) {
         String memberId = memberService.login(member);
         String token = jwtService.createToken(memberId);
         log.info("토큰생성 : " + token);
-
-        HttpSession session = request.getSession();
-        session.setAttribute("memberId", member.getId());
+        redirectAttr.addFlashAttribute("token",token);
         return "redirect:/";
     }
 

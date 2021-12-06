@@ -1,5 +1,6 @@
 package phoneDirectory.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import phoneDirectory.entity.Member;
 
@@ -7,6 +8,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 @Repository
+@Slf4j
 public class MemberRepository {
 
    private final String PATH = "C:\\Study\\phoneDirectory\\src\\main\\resources\\files\\members.txt";
@@ -17,6 +19,7 @@ public class MemberRepository {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH, true));
             bw.write(member.toString());
             bw.flush();
+            log.info(member.getId() + "저장");
         } catch (IOException e) {
             e.printStackTrace();
         }

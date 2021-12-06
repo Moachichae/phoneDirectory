@@ -28,22 +28,9 @@
         전화번호 : <input type="text" name="number" value="${phone.number}" required><br>
         <button type="submit">수정</button>
     </form>
-
-    <input type="hidden" value="${memberId}" id="session">
 </div>
-<input type="hidden" value="${memberId}" id="session">
+
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 
-<script>
-    var submitAction = function () {
-        var memberId = document.getElementById("session").value;
-        if (memberId == "") {
-            alert("로그인하세요");
-            return false;
-        }
-        return true
-    };
-
-</script>
 </html>

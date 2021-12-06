@@ -1,12 +1,14 @@
 package phoneDirectory.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import phoneDirectory.entity.Member;
 import phoneDirectory.repository.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;

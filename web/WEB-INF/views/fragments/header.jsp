@@ -15,25 +15,26 @@
         <div class="container">
             <a class="navbar-brand" href="/">home</a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                <c:set var="token" value="${token}" scope="session" />
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <c:if test="${empty memberId}">
+                        <c:if test="${empty token}">
                             <a class="nav-link" id="login" href="/login" onload="loading()">로그인</a>
                         </c:if>
-                        <c:if test="${not empty memberId}">
+                        <c:if test="${not empty token}">
                             <a class="nav-link" href="/phones/new">전화번호 입력</a>
                         </c:if>
                     </li>
-                    <c:if test="${not empty memberId}">
+                    <c:if test="${not empty token}">
                         <li class="nav-item">
                             <a class="nav-link" href="/phoneList">전화번호 검색</a>
                         </li>
                     </c:if>
                     <li class="nav-item">
-                        <c:if test="${empty memberId}">
+                        <c:if test="${empty token}">
                             <a class="nav-link" href="/members/new">회원가입</a>
                         </c:if>
-                        <c:if test="${not empty memberId}">
+                        <c:if test="${not empty token}">
                             <a class="nav-link" id="logout" href="/logout">로그아웃</a>
                         </c:if>
                     </li>
@@ -41,18 +42,7 @@
             </div>
         </div>
     </nav>
-
 </header>
 
-<script>
-    var submitAction = function () {
-        var memberId = document.getElementById("session").value;
-        if (memberId == "") {
-            alert("로그인하세요");
-            return false;
-        }
-        return true
-    };
-</script>
 <!-- // Header -->
 

@@ -67,15 +67,6 @@
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 <script>
-    const preventClick = function (e) {
-        var memberId = document.getElementById("session").value;
-        if (memberId == "") {
-            alert("로그인하세요");
-            e.preventDefault();
-        }
-        return true
-    };
-
 
     $("#search").click(function () {
         const nameOrKey = $("#name").val();

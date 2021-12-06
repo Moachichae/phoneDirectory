@@ -55,7 +55,7 @@ public class JwtServiceImpl {
     }
 
     private Date getExtTime() {
-        long expiredTime = 1000 * 60L * 60L * 2L;// 토큰 유효 시간 (2시간)
+        long expiredTime = 1000 * 60L;// 토큰 유효 시간  1분
         Date ext = new Date(); // 토큰 만료 시간
         ext.setTime(ext.getTime() + expiredTime);
         return ext;

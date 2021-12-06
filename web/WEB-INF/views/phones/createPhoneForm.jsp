@@ -28,7 +28,6 @@
         <button type="submit" id="save">저장</button>
     </form>
 </div>
-<input type="hidden" value="${memberId}" id="session">
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 </html>

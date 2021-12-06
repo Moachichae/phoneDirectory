@@ -1,5 +1,6 @@
 package phoneDirectory.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import phoneDirectory.entity.Phone;
 
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
+@Slf4j
 public class PhoneRepositoryImpl implements PhoneRepository {
 
     private final String PATH = "C:\\Study\\phoneDirectory\\src\\main\\resources\\files\\phoneDirectory.txt";
@@ -24,6 +26,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
 
             bw.flush();
             bw.close();
+            log.info("phoneMap 파일저장");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +47,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        log.info("phoneMap 파일읽기");
         return phoneDirectory;
     }
 
