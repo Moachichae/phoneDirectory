@@ -15,33 +15,31 @@
         <div class="container">
             <a class="navbar-brand" href="/">home</a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <c:set var="token" value="${token}" scope="session" />
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto" id="logout">
                     <li class="nav-item">
-                        <c:if test="${empty token}">
-                            <a class="nav-link" id="login" href="/login" onload="loading()">로그인</a>
-                        </c:if>
-                        <c:if test="${not empty token}">
-                            <a class="nav-link" href="/phones/new">전화번호 입력</a>
-                        </c:if>
+                        <a class="nav-link" id="login" href="/login" onload="loading()">로그인</a>
                     </li>
-                    <c:if test="${not empty token}">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/phoneList">전화번호 검색</a>
-                        </li>
-                    </c:if>
                     <li class="nav-item">
-                        <c:if test="${empty token}">
-                            <a class="nav-link" href="/members/new">회원가입</a>
-                        </c:if>
-                        <c:if test="${not empty token}">
-                            <a class="nav-link" id="logout" href="/logout">로그아웃</a>
-                        </c:if>
+                        <a class="nav-link" href="/members/new">회원가입</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <script>
+        const token = localStorage.getItem('token')
+        if (token != null){
+            document.getElementById('navbarResponsive').innerHTML = '<ul class="navbar-nav ml-auto" id="login">' +
+                '<li class="nav-item"><a class="nav-link" href="/phones/new">전화번호 입력</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="/phoneList">전화번호 검색</a></li>' +
+                '<li class="nav-item"><a class="nav-link" id="logout" href="/">로그아웃</a></li>' +
+                '</ul>';
+        }
+
+        $('#logout').click(function(){
+            localStorage.clear();
+        })
+    </script>
 </header>
 
 <!-- // Header -->

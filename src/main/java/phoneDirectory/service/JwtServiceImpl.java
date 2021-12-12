@@ -25,7 +25,7 @@ public class JwtServiceImpl {
         return Jwts.builder()
                 .setHeader(this.getHeaders()) // Headers 설정
                 .setClaims(claimMap) // Claims 설정
-                .setSubject("login") // 토큰 용도
+                .setSubject("loginToken") // 토큰 용도
                 .setExpiration(this.getExtTime()) // 토큰 만료 시간 설정
                 .signWith(SignatureAlgorithm.HS256, key.getBytes()) // HS256과 Key로 Sign
                 .compact(); // 토큰 생성
@@ -47,15 +47,17 @@ public class JwtServiceImpl {
         return claimMap;
     }
 
-    private Map<String, Object> getHeaders() { //Header 부분 설정
+    //Header 설정
+    private Map<String, Object> getHeaders() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("alg", "HS256");
         return headers;
     }
 
+    //만료 시간 설정
     private Date getExtTime() {
-        long expiredTime = 1000 * 60L;// 토큰 유효 시간  1분
+        long expiredTime = 1000 * 60L * 2;// 토큰 유효 시간  2시간
         Date ext = new Date(); // 토큰 만료 시간
         ext.setTime(ext.getTime() + expiredTime);
         return ext;

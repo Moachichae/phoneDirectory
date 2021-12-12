@@ -58,10 +58,7 @@
             <input id="name" type="text" name="nameOrKey" placeholder="이름을 입력하세요" required>
         </form>
     </div>
-    <div id="view">
-
-    </div>
-    <input type="hidden" value="${memberId}" id="session">
+    <div id="view"></div>
 </div>
 
 <jsp:include page="../fragments/footer.jsp"></jsp:include>

@@ -20,14 +20,37 @@
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 <div class="container pt-3">
 
-    <form action="/login" method="post">
+    <form>
         아이디 : <input type="text" name="id" placeholder="아이디를 입력하세요"> <br>
         비밀번호 : <input type="password" name="password" placeholder="비밀번호를 입력하세요"> <br>
-        <button type="submit">로그인</button>
+        <button type="button" id="login_button">로그인</button>
     </form>
 
 </div>
-<input type="hidden" value="${memberId}" id="session">
+<script>
+
+    $('#login_button').click(function (){
+        const id = $('input[name=id]').val();
+        const password = $('input[name=password]').val();
+        const loginMember = {
+            id : id,
+            password : password
+        };
+        console.log(JSON.stringify(loginMember));
+        $.ajax({
+            url: "/login",
+            type: "post",
+            contentType : "application/json",
+            data: JSON.stringify(loginMember),
+           success : function (result){
+                localStorage.setItem("token", result);
+                location.href = '/';
+           },error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+        });
+    })
+</script>
+
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 </html>

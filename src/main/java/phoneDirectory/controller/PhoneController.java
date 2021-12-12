@@ -33,12 +33,12 @@ public class PhoneController {
         return "/phones/phoneList";
     }
 
-
     @PostMapping(value = "/phones/new")
-    public String create(HttpServletRequest httpServletRequest, Phone phone) {
-        if (isToken(httpServletRequest)){ //토큰이 존재하면
-            phoneService.save(phone);
-        }
+    @ResponseBody
+    public String create(@RequestBody PhoneForm phoneDTO) {
+//        if (isToken(httpServletRequest)){ //토큰이 존재하면
+//            phoneService.save(phone);
+//        }
         return "redirect:/";
     }
 

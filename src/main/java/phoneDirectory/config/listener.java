@@ -19,7 +19,6 @@ public class listener implements ApplicationListener<ContextClosedEvent> {
     private final PhoneService phoneService;
     private final PhoneRepository phoneRepository;
 
-
     @Override
     public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
         phoneRepository.save(phoneService.getPhoneMap());

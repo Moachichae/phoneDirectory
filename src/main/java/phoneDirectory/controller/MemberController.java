@@ -1,20 +1,22 @@
 package phoneDirectory.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import phoneDirectory.entity.Member;
 import phoneDirectory.service.JwtServiceImpl;
 import phoneDirectory.service.MemberService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 @Controller
@@ -41,19 +43,13 @@ public class MemberController {
         return "members/loginMemberForm";
     }
 
-    @PostMapping("/login")
-    public String login(HttpServletRequest request, Member member, RedirectAttributes redirectAttr) {
+    @PostMapping(value = "/login")
+    @ResponseBody
+    public ResponseEntity<String> login(@RequestBody Member member) {
         String memberId = memberService.login(member);
         String token = jwtService.createToken(memberId);
-        log.info("토큰생성 : " + token);
-        redirectAttr.addFlashAttribute("token",token);
-        return "redirect:/";
+
+        return new ResponseEntity<String>(token, HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "redirect:/";
-    }
 }

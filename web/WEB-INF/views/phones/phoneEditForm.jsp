@@ -29,6 +29,9 @@
         <button type="submit">수정</button>
     </form>
 </div>
+<script>
+
+</script>
 
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>

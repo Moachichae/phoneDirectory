@@ -21,13 +21,41 @@
 <div class="container pt-3">
     <h2>전화번호부</h2>
     전화번호 입력
-    <form id="phone" name ="phone" action="/phones/new" method="post" accept-charset="UTF-8" onsubmit="return submitAction()">
+    <form>
         이 름 :  <input type="text" name="nameOrKey" required><br>
         생년월일 : <input type="text" name="birth" required><br>
         전화번호 : <input  type="text" name="number" required><br>
-        <button type="submit" id="save">저장</button>
+        <button type="button" id="phone_save">저장</button>
     </form>
 </div>
+<script>
+    $('#phone_save').click(function (){
+        const nameOrKey = $('input[name=namerOrKey]').val();
+        const birth = $('input[name=birth]').val();
+        const number = $('input[name=number]').val();
+        const token = localStorage.getItem('token');
+        const phone = {
+            nameOrKey : nameOrKey,
+            birth : birth,
+            number : number,
+            token : token
+        };
+        console.log(JSON.stringify(phone));
+        $.ajax({
+            url: "/phones/new",
+            type: "post",
+            contentType : "application/json",
+            data: JSON.stringify(phone),
+            success : function (result){
+                alert('삽입성공');
+            },error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                location.href = "/"
+            }
+        });
+    })
+</script>
+
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 </html>

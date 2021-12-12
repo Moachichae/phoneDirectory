@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ExceptionController {
 
-    @ExceptionHandler(value = Exception.class)
+//    @ExceptionHandler(value = Exception.class)
     public String BadRequestException() {
         // service 에서 구현한 로그인,연락처 중복발생시 예외처리 main 으로 화면 돌림
         log.error("에러 발생");

@@ -17,6 +17,7 @@
             crossorigin="anonymous"></script>
     <title>$Title$</title>
 </head>
+
 <body>
 <jsp:include page="fragments/header.jsp"></jsp:include>
 
@@ -25,7 +26,6 @@
     <div class="row">
 
         <div class="col-lg-3">
-
             <h3 class="my-4 text-center">Category</h3>
             <div class="list-group mb-4">
                 <a class="list-group-item list-group-item-info text-center font-weight-bold">게시판</a>
