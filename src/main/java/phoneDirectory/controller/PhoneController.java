@@ -2,6 +2,8 @@ package phoneDirectory.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +35,12 @@ public class PhoneController {
         return "/phones/phoneList";
     }
 
+    // 연락처 생성
     @PostMapping(value = "/phones/new")
     @ResponseBody
-    public String create(@RequestBody PhoneForm phoneDTO) {
-//        if (isToken(httpServletRequest)){ //토큰이 존재하면
-//            phoneService.save(phone);
-//        }
-        return "redirect:/";
+    public ResponseEntity<String> create(@RequestBody Phone phone) {
+        String nameOrKey = phoneService.save(phone);
+        return new ResponseEntity<String>(nameOrKey, HttpStatus.OK);
     }
 
     @GetMapping(value = "/phones/{nameOrKey}/edit")
@@ -49,22 +50,23 @@ public class PhoneController {
         return "/phones/phoneEditForm";
     }
 
-    @PostMapping(value = "/phones/{nameOrKey}/edit")
-    public String edit(@PathVariable String nameOrKey, Phone phone, HttpServletRequest httpServletRequest) {
-        if (isToken(httpServletRequest)){
-            phoneService.update(nameOrKey, phone);
-        }
-        return "redirect:/";
+    //연락처 업데이트
+    @PostMapping(value = "/phones/{previousNameOrKey}/edit")
+    @ResponseBody
+    public ResponseEntity<String> edit(@PathVariable String previousNameOrKey, @RequestBody Phone phone) {
+        phoneService.update(previousNameOrKey, phone);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/phones/{nameOrKey}/delete")
-    public String delete(@PathVariable String nameOrKey, HttpServletRequest httpServletRequest) {
-        if (isToken(httpServletRequest)){
-            phoneService.delete(nameOrKey);
-        }
-        return "redirect:/";
+    //연락처 삭제
+    @PostMapping(value = "/phones/delete")
+    @ResponseBody
+    public ResponseEntity<String> delete(@RequestBody Phone phone) {
+        phoneService.delete(phone.getNameOrKey());
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+    //이름으로 연락처 찾기
     @GetMapping(value = "/phones/{nameOrKey}", produces = "application/text; charset=UTF-8")
     @ResponseBody
     public String findByName(@PathVariable String nameOrKey) {
@@ -72,19 +74,12 @@ public class PhoneController {
         return phone.toString();
     }
 
-    private boolean isToken(HttpServletRequest httpServletRequest){
-        if (jwtService.verifyJWT(getToken(httpServletRequest)) == null){
-            // 토큰이 없으면 session 초기화 후 초기화면으로 보냄
-            log.info("토큰 만료");
-            httpServletRequest.getSession().invalidate();
-            return false;
-        }
-        return true;
-    }
-
-    private String getToken(HttpServletRequest httpServletRequest) {
-        HttpSession httpSession = httpServletRequest.getSession();
-        return (String) httpSession.getAttribute("token");
+    @ResponseBody
+    @PostMapping(value = "/token")
+    public ResponseEntity<String> validateToken(@RequestBody TokenDTO token){
+        if (jwtService.verifyJWT(token.getToken()) == null)
+            return new ResponseEntity<String>("false", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("Success",HttpStatus.OK);
     }
 
 }

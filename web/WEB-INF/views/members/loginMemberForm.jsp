@@ -29,24 +29,26 @@
 </div>
 <script>
 
-    $('#login_button').click(function (){
+    $('#login_button').click(function () {
         const id = $('input[name=id]').val();
         const password = $('input[name=password]').val();
         const loginMember = {
-            id : id,
-            password : password
+            id: id,
+            password: password
         };
         console.log(JSON.stringify(loginMember));
         $.ajax({
             url: "/login",
             type: "post",
-            contentType : "application/json",
+            contentType: "application/json",
             data: JSON.stringify(loginMember),
-           success : function (result){
+            success: function (result) {
                 localStorage.setItem("token", result);
+                alert('로그인 성공');
                 location.href = '/';
-           },error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+            }, error: function () {
+                alert('error');
+            }
         });
     })
 </script>

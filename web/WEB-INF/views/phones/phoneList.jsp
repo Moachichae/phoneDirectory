@@ -38,14 +38,15 @@
                 <th></th>
             </tr>
             <c:forEach items="${phoneMap}" var="phone">
-                <tr>
+                <tr id="${phone.value.nameOrKey}">
                     <td>${phone.value.nameOrKey}</td>
                     <td>${phone.value.birth}</td>
                     <td>${phone.value.number}</td>
-                    <td><a href="/phones/${phone.value.nameOrKey}/edit" role="button" onclick=preventClick(event)>수정</a>
+                    <td>
+                        <button type="button" id="edit" value="${phone.value.nameOrKey}">수정</button>
                     </td>
-                    <td><a href="/phones/${phone.value.nameOrKey}/delete" role="button"
-                           onclick=preventClick(event)>삭제</a>
+                    <td>
+                        <button type="button" id="delete" value="${phone.value.nameOrKey}">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -64,28 +65,71 @@
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
 </body>
 <script>
-
+    //연락처 id로 검색(ajax)
     $("#search").click(function () {
         const nameOrKey = $("#name").val();
         const url = "phones/" + nameOrKey;
+
         if (nameOrKey != "") {
             $.ajax(
                 {
                     url: url,
                     type: "get",
-                    success: function (data) {
-                        document.getElementById("view").innerText = data;
+                    success: function (result) {
+                        document.getElementById("view").innerText = result;
                     },
-                    error: function (request, status, error) {
-                        alert("code = " + request.status +
-                            " message = " + request.responseText +
-                            " error = " + error); // 실패 시 처리
+                    error: function () {
+                        alert('error'); // 실패 시 처리
                     }
                 });
         } else {
             alert("값을 입력하세요");
         }
 
+    });
+</script>
+
+<script>
+    //연락처 삭제
+    $(document).on("click", "#delete", function () {
+        const nameOrKey = $(this).val();
+        const token = localStorage.getItem('token');
+        const url = "/phones/delete";
+
+        $.ajax({
+            url: "/token",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({'token': token}),
+            success: function () {
+                $.ajax(
+                    {
+                        url: url,
+                        type: "post",
+                        contentType: "application/json",
+                        data: JSON.stringify({nameOrKey: nameOrKey}),
+                        success: function () {
+                            $("#" + nameOrKey).remove();
+                            alert("삭제성공");
+                        },
+                        error: function () {
+                            alert('error');
+                        }
+                    });
+            },
+            error: function () {
+                alert('로그인을 다시하세요');
+                localStorage.clear();
+                location.href = "/login";
+            }
+        });
+
+    });
+</script>
+
+<script>
+    $(document).on("click", "#edit", function () {
+        location.href = "/phones/" + $(this).val() + '/edit';
     });
 
 </script>

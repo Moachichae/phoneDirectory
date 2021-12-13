@@ -40,10 +40,11 @@ public class JwtServiceImpl {
                     .parseClaimsJws(jwt) // 파싱 및 검증, 실패 시 에러
                     .getBody();
         } catch (ExpiredJwtException e) { // 토큰이 만료되었을 경우
-
+            log.error("토큰 만료");
         } catch (Exception e) { // 그외 에러났을 경우
-            System.out.println("검증 실패");
+            log.error("검증 실패");
         }
+        log.info("검증완료: " + claimMap);
         return claimMap;
     }
 

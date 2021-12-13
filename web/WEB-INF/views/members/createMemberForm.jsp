@@ -17,28 +17,27 @@
     <form>
         아이디 : <input type="text" name="id" placeholder="아이디를 입력하세요"><br>
         비밀번호 : <input type="text" name="password" placeholder="비밀번호를 입력하세요"><br>
-        <button type="button" id="">확인</button>
+        <button type="button" id="create_member_button">확인</button>
     </form>
 </div>
 <script>
-    $('#login_button').click(function (){
+    $('#create_member_button').click(function (){
         const id = $('input[name=id]').val();
         const password = $('input[name=password]').val();
-        const loginMember = {
+        const createMember = {
             id : id,
             password : password
         };
-        console.log(JSON.stringify(loginMember));
+        console.log(JSON.stringify(createMember));
         $.ajax({
-            url: "/login",
+            url: "/members/new",
             type: "post",
             contentType : "application/json",
-            data: JSON.stringify(loginMember),
-            success : function (result){
-                localStorage.setItem("token", result);
+            data: JSON.stringify(createMember),
+            success : function(){
                 location.href = '/';
-            },error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+            },error:function(){
+                alert('error');}
         });
     })
 </script>

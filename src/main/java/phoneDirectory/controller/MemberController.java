@@ -33,9 +33,10 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(Member member, BindingResult result) {
+    @ResponseBody
+    public ResponseEntity<String> create(@RequestBody Member member) {
         memberService.join(member);
-        return "redirect:/login";
+        return new ResponseEntity<String>("Success",HttpStatus.OK);
     }
 
     @GetMapping("/login")
@@ -48,7 +49,7 @@ public class MemberController {
     public ResponseEntity<String> login(@RequestBody Member member) {
         String memberId = memberService.login(member);
         String token = jwtService.createToken(memberId);
-
+        log.info("토큰 생성 : " + token);
         return new ResponseEntity<String>(token, HttpStatus.OK);
     }
 

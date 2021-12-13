@@ -29,11 +29,12 @@ public class PhoneService {
         this.phoneMap = phoneRepository.findAll();
     }
 
-    public void save(Phone phone) {
+    public String save(Phone phone) {
         validateCreate(phone);
         phoneMap.put(phone.getNameOrKey(), phone);
         log.info(phone.getNameOrKey() + " map에 저장");
         this.synchronizeData();
+        return phone.getNameOrKey();
     }
 
     public void update(String previousName, Phone updatePhone) {

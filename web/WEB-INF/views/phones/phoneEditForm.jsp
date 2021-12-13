@@ -21,16 +21,54 @@
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 <div class="container pt-3">
     <c:set var="phone" value="${phone}"/>
-    <form name="phone" action="/phones/${phone.nameOrKey}/edit" method="post" accept-charset="UTF-8"
-          onsubmit="return submitAction()">
+    <form>
         이름 : <input type="text" name="nameOrKey" value="${phone.nameOrKey}" required><br>
         생년월일 : <input type="text" name="birth" value="${phone.birth}" required><br>
         전화번호 : <input type="text" name="number" value="${phone.number}" required><br>
-        <button type="submit">수정</button>
+        <button id="edit" type="button">수정</button>
     </form>
 </div>
 <script>
-
+    const previousNameOrKey = '${phone.nameOrKey}';
+    $(document).on("click","#edit",function (){
+        const nameOrKey = $('input[name=nameOrKey]').val();
+        const birth = $('input[name=birth]').val();
+        const number = $('input[name=number]').val();
+        const token = localStorage.getItem('token');
+        const phone = {
+            nameOrKey : nameOrKey,
+            birth : birth,
+            number : number,
+        };
+        $.ajax({
+            url: "/token",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({'token': token}),
+            success: function () {
+                $.ajax(
+                    {
+                        url: '/phones/'+ previousNameOrKey +'/edit',
+                        type: "post",
+                        contentType: "application/json",
+                        data:  JSON.stringify(phone),
+                        success: function () {
+                            $("#" + nameOrKey).remove();
+                            alert("수정 성공");
+                            location.href = '/phoneList'
+                        },
+                        error: function () {
+                            alert('error');
+                        }
+                    });
+            },
+            error: function () {
+                alert('로그인을 다시하세요');
+                localStorage.clear();
+                location.href = "/login";
+            }
+        });
+    });
 </script>
 
 <jsp:include page="../fragments/footer.jsp"></jsp:include>
