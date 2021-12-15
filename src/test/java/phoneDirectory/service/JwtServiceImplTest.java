@@ -19,9 +19,7 @@ class JwtServiceImplTest {
         //given
         Member member = new Member("kimchi", "123");
         //when
-        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsb2dpblRva2VuIiwiZ" +
-                "XhwIjoxNjM5MzgwNDkxLCJtZW1iZXJJZCI6InJoZGlkZGw0NDMyIn0.niUnI4JHDqB76-ophy5rJGAOLWeKABXoFa9DbT0LxpQ";
-        System.out.println(token);
+        String token = jwtService.createToken(member.getId());
 
         Map<String, Object> memberValue = jwtService.verifyJWT(token);
         //then

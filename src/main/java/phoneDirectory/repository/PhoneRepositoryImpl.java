@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 import phoneDirectory.entity.Phone;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 @Slf4j
@@ -15,11 +14,11 @@ public class PhoneRepositoryImpl implements PhoneRepository {
     private final String PATH = "C:\\Study\\phoneDirectory\\src\\main\\resources\\files\\phoneDirectory.txt";
 
     @Override
-    public void save(Map<String,Phone> phoneDirectory) {
+    public void save(Map<String, Phone> phoneDirectory) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH, false));
 
-            for (String key : phoneDirectory.keySet()){
+            for (String key : phoneDirectory.keySet()) {
                 Phone phone = phoneDirectory.get(key);
                 bw.write(phone.toString());
             }
@@ -51,10 +50,11 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         return phoneDirectory;
     }
 
+
     private Phone createPhoneBySplit(String str) {
         String[] split = str.split(",");
         String name = split[0];
-         String birth = split[1];
+        String birth = split[1];
         String number = split[2];
         return new Phone(name, birth, number);
     }

@@ -31,7 +31,7 @@
         if (token != null){
             document.getElementById('navbarResponsive').innerHTML = '<ul class="navbar-nav ml-auto" id="login">' +
                 '<li class="nav-item"><a class="nav-link" href="/phones/new">전화번호 입력</a></li>' +
-                '<li class="nav-item"><a class="nav-link" href="/phoneList">전화번호 검색</a></li>' +
+                '<li class="nav-item"><a class="nav-link" href="/phones">전화번호 검색</a></li>' +
                 '<li class="nav-item"><a class="nav-link" id="logout" href="/">로그아웃</a></li>' +
                 '</ul>';
         }

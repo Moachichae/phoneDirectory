@@ -1,5 +1,6 @@
 package phoneDirectory.repository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import phoneDirectory.entity.Member;

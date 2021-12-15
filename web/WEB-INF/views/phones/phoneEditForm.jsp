@@ -55,7 +55,7 @@
                         success: function () {
                             $("#" + nameOrKey).remove();
                             alert("수정 성공");
-                            location.href = '/phoneList'
+                            location.href = '/phones'
                         },
                         error: function () {
                             alert('error');

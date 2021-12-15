@@ -25,6 +25,8 @@ public class PhoneService {
     }
 
     public PhoneService(PhoneRepository phoneRepository) { //빈 생성시 데이터 로딩
+        log.info("service생성");
+        log.info(phoneRepository.toString());
         this.phoneRepository = phoneRepository;
         this.phoneMap = phoneRepository.findAll();
     }

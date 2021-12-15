@@ -34,16 +34,14 @@ public class JwtServiceImpl {
     //토큰 검증
     public Map<String, Object> verifyJWT(String jwt) {
         Map<String, Object> claimMap = null;
-        try {
-            claimMap = Jwts.parser()
-                    .setSigningKey(key.getBytes(StandardCharsets.UTF_8)) // Set Key
-                    .parseClaimsJws(jwt) // 파싱 및 검증, 실패 시 에러
-                    .getBody();
-        } catch (ExpiredJwtException e) { // 토큰이 만료되었을 경우
-            log.error("토큰 만료");
-        } catch (Exception e) { // 그외 에러났을 경우
-            log.error("검증 실패");
-        }
+
+        claimMap = Jwts.parser()
+                .setSigningKey(key.getBytes(StandardCharsets.UTF_8)) // Set Key
+                .parseClaimsJws(jwt) // 파싱 및 검증, 실패 시 에러
+                .getBody();
+        // ExpiredJwtException e 토큰이 만료되었을 경우
+        //  Exception e { // 그외 에러났을 경우
+
         log.info("검증완료: " + claimMap);
         return claimMap;
     }
@@ -58,7 +56,7 @@ public class JwtServiceImpl {
 
     //만료 시간 설정
     private Date getExtTime() {
-        long expiredTime = 1000 * 60L * 2;// 토큰 유효 시간  2시간
+        long expiredTime = 1000 * 2L;// 토큰 유효 시간  2시간
         Date ext = new Date(); // 토큰 만료 시간
         ext.setTime(ext.getTime() + expiredTime);
         return ext;

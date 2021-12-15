@@ -11,8 +11,7 @@ import phoneDirectory.entity.Phone;
 import phoneDirectory.service.JwtServiceImpl;
 import phoneDirectory.service.PhoneService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 import java.util.Map;
 
 @Controller
@@ -28,7 +27,7 @@ public class PhoneController {
         return "/phones/createPhoneForm";
     }
 
-    @GetMapping(value = "/phoneList")
+    @GetMapping(value = "/phones")
     public String list(Model model) {
         Map<String, Phone> phoneMap = phoneService.getPhoneMap();
         model.addAttribute("phoneMap", phoneMap);
@@ -76,10 +75,9 @@ public class PhoneController {
 
     @ResponseBody
     @PostMapping(value = "/token")
-    public ResponseEntity<String> validateToken(@RequestBody TokenDTO token){
-        if (jwtService.verifyJWT(token.getToken()) == null)
-            return new ResponseEntity<String>("false", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<String>("Success",HttpStatus.OK);
+    public ResponseEntity<String> validateToken(@RequestBody TokenDTO token) {
+        jwtService.verifyJWT(token.getToken());
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
 }
